@@ -1,0 +1,89 @@
+# ===========================================
+# Toy Function Regression Experiment Config
+# ===========================================
+# This config file controls the toy 2D function regression experiment.
+# It trains both KAN and MLP models to approximate a synthetic function.
+# 
+# Target function: y = sin(3*x1) + x2^2
+# This is designed to test KAN's symbolic regression capabilities.
+
+# -----------------
+# Random Seed
+# -----------------
+# Set a fixed seed for reproducibility
+seed: 42
+
+# -----------------
+# Device
+# -----------------
+# Options: "cuda", "cpu", "mps" (for Apple Silicon)
+# Leave commented to auto-detect
+# device: "cpu"
+
+# -----------------
+# Data Configuration
+# -----------------
+# Number of training samples
+n_train: 1000
+
+# Number of validation samples
+n_val: 200
+
+# Toy function to use
+# Options: 
+#   "default"    -> y = sin(3*x1) + x2^2 (best for symbolic regression)
+#   "sincos"     -> y = sin(pi*x1) + cos(pi*x2)
+#   "complex"    -> y = sin(pi*x1) * exp(-x2^2) + x1*x2
+#   "polynomial" -> y = x1^2 + x2^2 + x1*x2
+function_name: "default"
+
+# Input range for x1 and x2
+x_range: [-1, 1]
+
+# Noise standard deviation (0 = no noise)
+noise_std: 0.0
+
+# Batch size for training
+batch_size: 64
+
+# -----------------
+# Model Configuration
+# -----------------
+# KAN architecture: [input_dim, hidden_dims..., output_dim]
+# For 2D input -> 1D output with one hidden layer of 5 neurons:
+kan_width: [2, 5, 1]
+
+# KAN grid size (number of intervals for splines)
+# Higher = more expressive, but more parameters
+kan_grid: 5
+
+# KAN spline order (k)
+# 3 = cubic splines (recommended)
+kan_k: 3
+
+# -----------------
+# Training Configuration
+# -----------------
+# Number of training epochs
+n_epochs: 100
+
+# Learning rate
+learning_rate: 0.001
+
+# Whether to use learning rate scheduler
+use_scheduler: false
+
+# Print progress every N epochs
+print_every: 10
+
+# -----------------
+# KAN Interpretability (pykan features)
+# -----------------
+# Enable/disable pruning after training
+enable_prune: true
+
+# Pruning threshold (edges with importance below this are removed)
+prune_threshold: 0.01
+
+# Enable/disable symbolic regression (auto_symbolic)
+enable_symbolic: true
