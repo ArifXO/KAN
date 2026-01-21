@@ -252,8 +252,4 @@ pip uninstall pykan
 - **KAN Paper**: Liu et al., "KAN: Kolmogorov-Arnold Networks" (2024)
 - **Pykan**: https://github.com/KindXiaoming/pykan
 
----
 
-## License
-
-MIT License - For educational and research purposes.
